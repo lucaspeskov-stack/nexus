@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-space-900 text-gold-soft font-sans antialiased;
+    margin: 0;
+    overflow-x: hidden;
+    /* Espaço seguro para notch em celulares */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+}
+
+@layer components {
+  /* Gradiente do céu profundo */
+  .bg-deep-space {
+    background:
+      radial-gradient(circle at 50% -10%, rgba(245, 215, 122, 0.08), transparent 45%),
+      radial-gradient(circle at 80% 120%, rgba(99, 102, 241, 0.12), transparent 50%),
+      linear-gradient(180deg, #04060f 0%, #070b1c 55%, #04060f 100%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 18px rgba(245, 215, 122, 0.45);
+  }
+
+  /* Botão dourado luminoso (Rapunzel) */
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center rounded-full px-8 py-3
+      text-sm font-medium tracking-wide text-space-900 transition-transform;
+    background: linear-gradient(180deg, #ffe9a8 0%, #f5d77a 55%, #c9a24b 100%);
+    box-shadow:
+      0 0 24px rgba(245, 215, 122, 0.5),
+      0 8px 30px rgba(0, 0, 0, 0.45);
+  }
+  .btn-gold:active {
+    transform: scale(0.97);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-full border border-gold/30
+      px-6 py-2.5 text-sm tracking-wide text-gold-soft/90 transition-colors;
+  }
+  .btn-ghost:active {
+    @apply bg-gold/10;
+  }
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
