@@ -36,7 +36,7 @@ export default function Hero() {
       </div>
 
       {/* Holofote de desfoque que segue o cursor sobre o vídeo */}
-      <CursorBlur radius={180} maxBlur={14} />
+      <CursorBlur radius={140} maxBlur={14} />
 
       <div className="shell relative z-10 grid w-full grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
         {/* Coluna principal */}
