@@ -2,11 +2,39 @@ import Reveal from '../components/Reveal'
 import Button from '../components/Button'
 import WhatsAppCTA from '../components/WhatsAppCTA'
 import { brand } from '../data/site'
+import heroVideo from '../../arquivos/forja-hero.mp4'
+
+const REDUCED =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] items-center pt-24">
-      <div className="shell grid w-full grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-24">
+      {/* Fundo: vídeo da forja */}
+      <div className="absolute inset-0 z-0">
+        <video
+          className="h-full w-full object-cover"
+          src={heroVideo}
+          autoPlay={!REDUCED}
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+        {/* Escurecimento + vinheta para legibilidade do texto */}
+        <div className="absolute inset-0 bg-ink-900/55" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(10,10,11,0.85) 0%, rgba(10,10,11,0.35) 55%, rgba(10,10,11,0.15) 100%), linear-gradient(180deg, rgba(10,10,11,0.4) 0%, rgba(10,10,11,0) 30%, rgba(10,10,11,0.7) 100%)',
+          }}
+        />
+      </div>
+
+      <div className="shell relative z-10 grid w-full grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
         {/* Coluna principal */}
         <div className="lg:col-span-7">
           <Reveal>
@@ -48,7 +76,7 @@ export default function Hero() {
       </div>
 
       {/* Dica de scroll */}
-      <div className="absolute inset-x-0 bottom-8 flex justify-center">
+      <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center">
         <Reveal delay={500}>
           <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-ash/60">
             Role para forjar ↓
