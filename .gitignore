@@ -1,0 +1,11 @@
+# Python bytecode (gerado ao rodar scripts das skills)
+__pycache__/
+*.py[cod]
+*.coverage
+.coverage
+
+# Node
+node_modules/
+
+# Sistema
+.DS_Store
