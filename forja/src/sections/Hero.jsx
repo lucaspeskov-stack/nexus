@@ -1,6 +1,7 @@
 import Reveal from '../components/Reveal'
 import Button from '../components/Button'
 import WhatsAppCTA from '../components/WhatsAppCTA'
+import CursorBlur from '../components/CursorBlur'
 import { brand } from '../data/site'
 import heroVideo from '../../arquivos/forja-hero.mp4'
 
@@ -33,6 +34,9 @@ export default function Hero() {
           }}
         />
       </div>
+
+      {/* Holofote de desfoque que segue o cursor sobre o vídeo */}
+      <CursorBlur radius={180} maxBlur={14} />
 
       <div className="shell relative z-10 grid w-full grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
         {/* Coluna principal */}
