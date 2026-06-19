@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-ink-900 text-bone font-display antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #ff6b1a;
+    color: #0a0a0b;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1b1b1e;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a2a2e;
+  }
+
+  :focus-visible {
+    outline: 2px solid #ff6b1a;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Rótulo técnico em mono (estilo sint.gg) */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.3em] text-ash;
+  }
+
+  /* Texto com gradiente de fogo */
+  .text-ember {
+    background: linear-gradient(135deg, #ffa62b 0%, #ff6b1a 50%, #e2360f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6 md:px-10;
+  }
+
+  /* Borda hairline sutil */
+  .hairline {
+    @apply border border-white/[0.08];
+  }
+}
+
+/* Respeita preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
