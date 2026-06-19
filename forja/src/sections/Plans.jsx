@@ -8,7 +8,7 @@ export default function Plans() {
     <section id="planos" className="relative scroll-mt-24 py-28 md:py-36">
       <div className="shell">
         <SectionHeading
-          index="01"
+          index="02"
           eyebrow="Planos de Sites"
           title="Escolha a têmpera"
           accent="do seu site."

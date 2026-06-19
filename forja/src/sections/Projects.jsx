@@ -57,7 +57,7 @@ export default function Projects() {
     <section id="projetos" className="relative scroll-mt-24 border-t border-white/[0.06] py-28 md:py-36">
       <div className="shell">
         <SectionHeading
-          index="02"
+          index="01"
           eyebrow="Projetos"
           title="Forjados"
           accent="no fogo."
