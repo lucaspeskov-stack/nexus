@@ -13,30 +13,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Run auto-deploy script
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy new clients
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: node auto-deploy-to-vercel.js
-
-      - name: Commit changes
-        if: always()
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          if git diff --exit-code .vercel-deployed.json > /dev/null; then
-            echo "Nenhuma mudança em .vercel-deployed.json"
-          else
-            git add .vercel-deployed.json
-            git commit -m "ci: auto-deploy novos clientes [skip ci]"
-            git push
-          fi
+          for dir in clientes/*/; do
+            client=$(basename "$dir")
+            echo "🚀 Deploying: $client"
+            cd "$dir"
+            vercel --prod --token $VERCEL_TOKEN --yes --name "nexus-$client"
+            cd ../..
+          done
