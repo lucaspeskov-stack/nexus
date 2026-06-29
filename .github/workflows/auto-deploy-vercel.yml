@@ -27,9 +27,8 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           for dir in clientes/*/; do
-            client=$(basename "$dir" | tr '[:upper:]' '[:lower:]')
-            echo "🚀 Deploying: $client"
-            cd "$dir"
-            vercel --prod --token $VERCEL_TOKEN --yes
-            cd ../..
+            client=$(basename "$dir")
+            client_lower=$(echo "$client" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
+            echo "🚀 Deploying: $client -> $client_lower"
+            vercel "$dir" --prod --token $VERCEL_TOKEN --yes --name "$client_lower"
           done
