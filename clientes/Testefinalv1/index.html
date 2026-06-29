@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salão de Beleza - Forja</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .intro {
+      background: #f5f5f5;
+      padding: 40px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .intro h2 {
+      color: #ff6b35;
+      margin-bottom: 15px;
+      font-size: 1.8em;
+    }
+
+    .intro p {
+      font-size: 1.1em;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .service-card {
+      background: white;
+      border: 2px solid #ff6b35;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
+    }
+
+    .service-icon {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+    }
+
+    .service-card h3 {
+      color: #ff6b35;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+
+    .service-card p {
+      color: #666;
+      font-size: 0.95em;
+    }
+
+    .about {
+      background: #fff3e0;
+      padding: 40px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+
+    .about h2 {
+      color: #ff6b35;
+      margin-bottom: 15px;
+      font-size: 1.8em;
+    }
+
+    .about p {
+      color: #555;
+      font-size: 1em;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .contact {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .contact h2 {
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .contact-item p {
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    footer {
+      background: #1a1a1a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+      .services {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✨ Beleza & Estilo</h1>
+    <p>Seu lugar de transformação e bem-estar</p>
+  </header>
+
+  <div class="container">
+    <div class="intro">
+      <h2>Bem-vindo ao nosso salão</h2>
+      <p>
+        Somos especializados em cabelo, manicure, pedicure e cuidados com a pele.
+        Nossa equipe de profissionais qualificados está pronta para deixar você radiante
+        e confiante em cada atendimento.
+      </p>
+    </div>
+
+    <h2 style="text-align: center; color: #ff6b35; margin-bottom: 30px;">Nossos Serviços</h2>
+    <div class="services">
+      <div class="service-card">
+        <div class="service-icon">💇</div>
+        <h3>Corte & Styling</h3>
+        <p>Cortes modernos e estilos personalizados para realçar sua beleza natural.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💅</div>
+        <h3>Manicure & Pedicure</h3>
+        <p>Unhas perfeitas com designs exclusivos e acabamento impecável.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧖</div>
+        <h3>Skincare</h3>
+        <p>Tratamentos faciais para hidratar, revitalizar e rejuvenescer sua pele.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💄</div>
+        <h3>Maquiagem</h3>
+        <p>Maquiagem profissional para eventos especiais e dia a dia.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Coloração</h3>
+        <p>Cores vibrantes e duradouras com produtos de qualidade premium.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💆</div>
+        <h3>Massagem Relaxante</h3>
+        <p>Relaxe e recarregue suas energias com nossas massagens terapêuticas.</p>
+      </div>
+    </div>
+
+    <div class="about">
+      <h2>Por que escolher a gente?</h2>
+      <p>
+        ✓ <strong>Profissionais Certificados</strong> - Nossa equipe tem anos de experiência no mercado.
+      </p>
+      <p>
+        ✓ <strong>Produtos Premium</strong> - Usamos apenas os melhores produtos para seus cabelos e pele.
+      </p>
+      <p>
+        ✓ <strong>Ambiente Acolhedor</strong> - Um espaço limpo, confortável e relaxante para seu bem-estar.
+      </p>
+      <p>
+        ✓ <strong>Atendimento Personalizado</strong> - Cada cliente é único e merece atenção especial.
+      </p>
+    </div>
+
+    <div class="contact">
+      <h2>Entre em Contato</h2>
+      <p style="font-size: 1.1em;">Agende seu atendimento agora mesmo!</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <strong>📱 WhatsApp</strong>
+          <p>(11) 99999-9999</p>
+        </div>
+        <div class="contact-item">
+          <strong>📍 Localização</strong>
+          <p>Copacabana, Rio de Janeiro</p>
+        </div>
+        <div class="contact-item">
+          <strong>⏰ Horário</strong>
+          <p>Seg-Dom 9h às 19h</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Beleza & Estilo | Forjado para vender ✨</p>
+  </footer>
+</body>
+</html>
