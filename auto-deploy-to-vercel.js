@@ -8,12 +8,12 @@ const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
 const VERCEL_ORG_ID = process.env.VERCEL_ORG_ID;
 const GITHUB_REPO = process.env.GITHUB_REPOSITORY;
 
-console.log("🔍 Debug Info:");
+console.log("🔍 Verificando configuração...");
 console.log("VERCEL_TOKEN:", VERCEL_TOKEN ? "✅ Configurado" : "❌ Faltando");
 console.log("VERCEL_ORG_ID:", VERCEL_ORG_ID ? "✅ " + VERCEL_ORG_ID : "❌ Faltando");
 console.log("GITHUB_REPO:", GITHUB_REPO || "❌ Faltando");
 
-if (!VERCEL_TOKEN || !VERCEL_ORG_ID) {
+if (!VERCEL_TOKEN || !VERCEL_ORG_ID || !GITHUB_REPO) {
   console.error("❌ Secrets não configurados!");
   process.exit(1);
 }
@@ -22,11 +22,8 @@ const clientsDir = path.join(process.cwd(), "clientes");
 const deployedFile = path.join(process.cwd(), ".vercel-deployed.json");
 
 console.log("\n📁 Diretórios:");
-console.log("Working dir:", process.cwd());
-console.log("Clientes dir:", clientsDir);
-console.log("Deployed file:", deployedFile);
+console.log("Clientes:", clientsDir);
 
-// Verifica se pasta clientes existe
 if (!fs.existsSync(clientsDir)) {
   console.error("❌ Pasta clientes/ não existe!");
   process.exit(1);
@@ -35,27 +32,28 @@ if (!fs.existsSync(clientsDir)) {
 let deployed = {};
 if (fs.existsSync(deployedFile)) {
   deployed = JSON.parse(fs.readFileSync(deployedFile, "utf-8"));
-  console.log("✅ Arquivo deployed existente:", Object.keys(deployed));
+  console.log("✅ Clientes já deployados:", Object.keys(deployed).length);
 }
 
 const clientFolders = fs.readdirSync(clientsDir).filter((name) => {
-  return fs.statSync(path.join(clientsDir, name)).isDirectory();
+  const fullPath = path.join(clientsDir, name);
+  return fs.statSync(fullPath).isDirectory();
 });
 
-console.log("\n📂 Pastas encontradas:", clientFolders);
+console.log("\n📂 Pastas em clientes/:", clientFolders);
 
 const newClients = clientFolders.filter((name) => !deployed[name]);
-console.log("🆕 Novos clientes:", newClients);
+console.log("🆕 Novos clientes para deploy:", newClients);
 
 if (newClients.length === 0) {
   console.log("✅ Nenhum novo cliente");
-  // Cria arquivo vazio se não existir
   if (!fs.existsSync(deployedFile)) {
     fs.writeFileSync(deployedFile, JSON.stringify(deployed, null, 2));
   }
   process.exit(0);
 }
 
+// Função para fazer requisições HTTPS
 function makeRequest(method, path, body = null) {
   return new Promise((resolve, reject) => {
     const options = {
@@ -69,13 +67,10 @@ function makeRequest(method, path, body = null) {
       },
     };
 
-    console.log(`\n📡 Request: ${method} ${path}`);
-    
     const req = https.request(options, (res) => {
       let data = "";
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
-        console.log(`📡 Response status: ${res.statusCode}`);
         try {
           const parsed = JSON.parse(data);
           resolve({ status: res.statusCode, data: parsed });
@@ -85,11 +80,7 @@ function makeRequest(method, path, body = null) {
       });
     });
 
-    req.on("error", (err) => {
-      console.error("❌ Request error:", err.message);
-      reject(err);
-    });
-
+    req.on("error", reject);
     if (body) req.write(JSON.stringify(body));
     req.end();
   });
@@ -101,6 +92,8 @@ async function deployClients() {
       console.log(`\n🚀 Processando: ${clientName}`);
       const projectSlug = `nexus-${clientName}`;
 
+      // 1. Criar projeto
+      console.log(`📦 Criando projeto: ${projectSlug}`);
       const createRes = await makeRequest("POST", "/v1/projects", {
         name: projectSlug,
         gitRepository: {
@@ -110,33 +103,53 @@ async function deployClients() {
         rootDirectory: `clientes/${clientName}`,
       });
 
-      console.log("Response data:", createRes.data);
-
       if (createRes.status !== 201) {
-        console.error(
-          `❌ Erro ao criar ${clientName}: Status ${createRes.status}`,
-          createRes.data
-        );
+        console.error(`❌ Erro ao criar projeto: ${createRes.status}`);
+        console.error("Response:", createRes.data);
         continue;
       }
 
       const projectId = createRes.data.id;
-      const projectUrl = createRes.data.url;
-      console.log(`✅ Projeto criado: https://${projectUrl}`);
+      console.log(`✅ Projeto criado: ${projectId}`);
 
+      // 2. Fazer deploy automático
+      console.log(`📤 Disparando deploy...`);
+      const deployRes = await makeRequest("POST", "/v1/deployments", {
+        projectId: projectId,
+        source: "cli",
+        gitSource: {
+          type: "github",
+          repo: GITHUB_REPO,
+          ref: "main",
+        },
+      });
+
+      if (deployRes.status !== 200 && deployRes.status !== 201) {
+        console.warn(`⚠️ Deploy retornou status ${deployRes.status}`);
+        console.warn("Response:", deployRes.data);
+      } else {
+        const deploymentUrl = deployRes.data.url || `${projectSlug}.vercel.app`;
+        console.log(`✅ Deploy iniciado: https://${deploymentUrl}`);
+      }
+
+      // 3. Registrar como deployado
       deployed[clientName] = {
-        projectId,
-        projectUrl,
+        projectId: projectId,
+        projectSlug: projectSlug,
+        projectUrl: `${projectSlug}.vercel.app`,
         deployedAt: new Date().toISOString(),
       };
+
+      console.log(`✅ ${clientName} registrado!`);
     } catch (error) {
-      console.error(`❌ Erro: ${error.message}`);
+      console.error(`❌ Erro ao processar ${clientName}:`, error.message);
     }
   }
 
-  // Sempre salva o arquivo
+  // Salvar arquivo
   fs.writeFileSync(deployedFile, JSON.stringify(deployed, null, 2));
-  console.log("\n✅ Arquivo atualizado: .vercel-deployed.json");
+  console.log("\n✅ .vercel-deployed.json atualizado");
+  console.log("Total deployados:", Object.keys(deployed).length);
 }
 
 deployClients().catch((err) => {
