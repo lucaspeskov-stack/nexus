@@ -1,0 +1,42 @@
+name: Auto Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'clientes/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Run auto-deploy script
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node auto-deploy-to-vercel.js
+
+      - name: Commit changes
+        if: always()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          if git diff --exit-code .vercel-deployed.json > /dev/null; then
+            echo "Nenhuma mudança em .vercel-deployed.json"
+          else
+            git add .vercel-deployed.json
+            git commit -m "ci: auto-deploy novos clientes [skip ci]"
+            git push
+          fi
