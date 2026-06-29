@@ -1,0 +1,62 @@
+{
+  "Teste": {
+    "projectSlug": "nexus-Teste",
+    "projectUrl": "nexus-Teste.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "Testfinal": {
+    "projectSlug": "nexus-Testfinal",
+    "projectUrl": "nexus-Testfinal.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "Testfinalv1": {
+    "projectSlug": "nexus-Testfinalv1",
+    "projectUrl": "nexus-Testfinalv1.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "atelier-da-beleza": {
+    "projectSlug": "nexus-atelier-da-beleza",
+    "projectUrl": "nexus-atelier-da-beleza.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "cliente-8": {
+    "projectSlug": "nexus-cliente-8",
+    "projectUrl": "nexus-cliente-8.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "level-salao": {
+    "projectSlug": "nexus-level-salao",
+    "projectUrl": "nexus-level-salao.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "studio-flavio-barcelos-salao-de-beleza-n": {
+    "projectSlug": "nexus-studio-flavio-barcelos-salao-de-beleza-n",
+    "projectUrl": "nexus-studio-flavio-barcelos-salao-de-beleza-n.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "supplement-for-life": {
+    "projectSlug": "nexus-supplement-for-life",
+    "projectUrl": "nexus-supplement-for-life.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "test-workflow": {
+    "projectSlug": "nexus-test-workflow",
+    "projectUrl": "nexus-test-workflow.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "teste-auto-deploy": {
+    "projectSlug": "nexus-teste-auto-deploy",
+    "projectUrl": "nexus-teste-auto-deploy.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "teste-v2": {
+    "projectSlug": "nexus-teste-v2",
+    "projectUrl": "nexus-teste-v2.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  },
+  "trigger-webhook": {
+    "projectSlug": "nexus-trigger-webhook",
+    "projectUrl": "nexus-trigger-webhook.vercel.app",
+    "deployedAt": "2026-06-29T00:00:00.000Z"
+  }
+}
