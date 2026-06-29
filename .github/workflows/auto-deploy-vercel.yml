@@ -25,12 +25,11 @@ jobs:
       - name: Deploy new clients
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
         run: |
           for dir in clientes/*/; do
             client=$(basename "$dir")
             echo "🚀 Deploying: $client"
             cd "$dir"
-            vercel --prod --token $VERCEL_TOKEN --yes --name "nexus-$client"
+            vercel --prod --token $VERCEL_TOKEN --yes
             cd ../..
           done
