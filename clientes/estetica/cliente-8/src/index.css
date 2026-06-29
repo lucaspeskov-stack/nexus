@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    scroll-margin-top: 5.5rem; /* compensa a navbar fixa ao ancorar */
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(192, 132, 111, 0.28);
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+    text-wrap: balance;
+  }
+
+  /* Acessibilidade: respeita quem prefere menos movimento */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+
+  /* Rótulo fino acima dos títulos */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest2 text-rose-deep;
+  }
+
+  .gold-line {
+    @apply h-px w-10 bg-rose/60;
+  }
+
+  /* Texto com gradiente rose gold */
+  .text-gold-grad {
+    background: linear-gradient(100deg, #9c6450 0%, #e6c4b3 45%, #c0846f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Botão principal (rose gold) */
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5
+      text-sm font-semibold tracking-wide text-ink-900 transition-all duration-300
+      hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-offset-2;
+    background: linear-gradient(180deg, #f4e3d9 0%, #e6c4b3 48%, #c0846f 100%);
+    box-shadow: 0 14px 34px -12px rgba(156, 100, 80, 0.7);
+  }
+
+  /* Botão de contorno escuro (sobre fundo claro) */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/20
+      px-6 py-3 text-sm font-medium tracking-wide text-ink/80 transition-all duration-300
+      hover:border-ink/40 hover:bg-ink/[0.04] active:scale-[0.98]
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30;
+  }
+
+  /* Botão de contorno claro (sobre fundo escuro) */
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-rose/40
+      px-6 py-3 text-sm font-medium tracking-wide text-cream transition-all duration-300
+      hover:bg-rose/10 hover:border-rose/70 active:scale-[0.98]
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose/60;
+  }
+
+  /* Botão WhatsApp */
+  .btn-wa {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5
+      text-sm font-semibold tracking-wide text-white transition-all duration-300
+      hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2;
+    background: linear-gradient(180deg, #2bb673 0%, #1c9d63 100%);
+    box-shadow: 0 14px 34px -14px rgba(28, 157, 99, 0.8);
+  }
+
+  .card {
+    @apply rounded-3xl border border-ink/[0.06] bg-white shadow-soft;
+  }
+
+  /* Moldura rose gold para imagens em destaque */
+  .frame-gold {
+    @apply relative overflow-hidden rounded-[1.75rem] ring-1 ring-rose/30;
+    box-shadow: 0 30px 70px -30px rgba(36, 24, 32, 0.5);
+  }
+
+  .divider-soft {
+    background: linear-gradient(90deg, transparent, rgba(192, 132, 111, 0.5), transparent);
+    @apply h-px w-full;
+  }
+}
+
+@layer utilities {
+  .bg-grain {
+    background-image: radial-gradient(rgba(36, 24, 32, 0.05) 1px, transparent 1px);
+    background-size: 4px 4px;
+  }
+
+  .text-shadow-hero {
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent);
+    mask-image: linear-gradient(180deg, #000 70%, transparent);
+  }
+}
