@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -26,9 +28,14 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          for dir in clientes/*/; do
-            client=$(basename "$dir")
-            client_lower=$(echo "$client" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
-            echo "🚀 Deploying: $client -> $client_lower"
-            vercel "$dir" --prod --token $VERCEL_TOKEN --yes --name "$client_lower"
+          # Pega só as pastas que mudaram neste commit
+          changed=$(git diff --name-only HEAD~1 HEAD -- 'clientes/' | grep '^clientes/' | cut -d'/' -f2 | sort -u)
+          
+          for client in $changed; do
+            dir="clientes/$client"
+            if [ -d "$dir" ]; then
+              client_lower=$(echo "$client" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
+              echo "🚀 Deploying: $client_lower"
+              vercel "$dir" --prod --token $VERCEL_TOKEN --yes
+            fi
           done
