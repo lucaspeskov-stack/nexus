@@ -25,7 +25,7 @@ npm run build    # build de produção (dist/)
 npm run preview  # pré-visualizar o build
 ```
 
-## Observações
+## Observações:
 - A **foto do Hero/Sobre** usa hotlink da foto oficial do Google Maps do salão. Essas URLs
   (`lh3.googleusercontent.com/gps-cs-s/...`) podem expirar; o componente `SmartImage` mostra um
   fallback elegante caso a imagem não carregue. Para máxima estabilidade, baixe a foto e coloque em
