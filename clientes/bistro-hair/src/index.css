@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #c9a24b;
+    --color-bg: #161110;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    @apply bg-espresso-900 text-cream font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  ::selection {
+    background: rgba(201, 162, 75, 0.28);
+    color: #f4ecdd;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+           transition-all duration-200 focus:outline-none min-h-[44px] cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-gold-400 to-gold-500 text-espresso-950 shadow-gold
+           hover:from-gold-300 hover:to-gold-400 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply btn border border-gold-500/40 bg-white/5 text-gold-200 hover:border-gold-400 hover:bg-white/10
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-white/5
+           px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300;
+  }
+
+  .card {
+    @apply rounded-3xl border border-white/10 bg-espresso-800/70 shadow-soft backdrop-blur-sm;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-gold-200 via-gold-300 to-gold-500 bg-clip-text text-transparent;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold-500/40 to-transparent;
+  }
+}
