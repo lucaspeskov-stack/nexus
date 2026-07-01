@@ -27,15 +27,26 @@ jobs:
       - name: Deploy new clients
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_G9yrlsW10205HeU8oq6cryQ9
         run: |
           # Pega só as pastas que mudaram neste commit
           changed=$(git diff --name-only HEAD~1 HEAD -- 'clientes/' | grep '^clientes/' | cut -d'/' -f2 | sort -u)
-          
+
           for client in $changed; do
             dir="clientes/$client"
             if [ -d "$dir" ]; then
               client_lower=$(echo "$client" | tr '[:upper:]' '[:lower:]' | tr '_' '-')
               echo "🚀 Deploying: $client_lower"
-              vercel "$dir" --prod --token $VERCEL_TOKEN --yes
+
+              cd "$dir"
+
+              # Linka (ou cria) o projeto Vercel com nome igual à pasta do cliente,
+              # dentro do escopo do time correto (VERCEL_ORG_ID)
+              vercel link --yes --token="$VERCEL_TOKEN" --project="$client_lower" --scope="$VERCEL_ORG_ID"
+
+              # Faz o deploy de produção pro projeto já linkado
+              vercel deploy --prod --token="$VERCEL_TOKEN" --yes
+
+              cd - > /dev/null
             fi
           done
