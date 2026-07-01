@@ -15,7 +15,7 @@ usando a skill `ui-ux-pro-max`.
 - **Tipografia:** Playfair Display (títulos) + Inter (texto)
 
 ## Seções
-Hero · Serviços · Avaliações · Sobre · Localização (Maps) · Contato + Footer.
+Hero · Serviços · Avaliações · Sobre · Localização (Maps) · Contatacto + Footer.
 
 ## Rodar localmente
 ```bash
