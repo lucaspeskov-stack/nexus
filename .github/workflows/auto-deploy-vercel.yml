@@ -27,7 +27,6 @@ jobs:
       - name: Deploy new clients
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: team_G9yrlsW10205HeU8oq6cryQ9
         run: |
           # Pega só as pastas que mudaram neste commit
           changed=$(git diff --name-only HEAD~1 HEAD -- 'clientes/' | grep '^clientes/' | cut -d'/' -f2 | sort -u)
@@ -41,10 +40,10 @@ jobs:
               cd "$dir"
 
               # Linka (ou cria) o projeto Vercel com nome igual à pasta do cliente,
-              # dentro do escopo do time correto (VERCEL_ORG_ID)
-              vercel link --yes --token="$VERCEL_TOKEN" --project="$client_lower" --scope="$VERCEL_ORG_ID"
+              # dentro do escopo do time Forja
+              vercel link --yes --token="$VERCEL_TOKEN" --project="$client_lower" --scope=team_G9yrlsW10205HeU8oq6cryQ9
 
-              # Faz o deploy de produção pro projeto já linkado
+              # Faz o deploy de produção — lê org/project ID do .vercel/project.json criado acima
               vercel deploy --prod --token="$VERCEL_TOKEN" --yes
 
               cd - > /dev/null
