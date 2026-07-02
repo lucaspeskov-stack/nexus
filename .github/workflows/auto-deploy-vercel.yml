@@ -40,8 +40,8 @@ jobs:
               cd "$dir"
 
               # Linka (ou cria) o projeto Vercel com nome igual à pasta do cliente,
-              # dentro do escopo do time Forja
-              vercel link --yes --token="$VERCEL_TOKEN" --project="$client_lower" --scope=team_G9yrlsW10205HeU8oq6cryQ9
+              # na conta pessoal (peskov)
+              vercel link --yes --token="$VERCEL_TOKEN" --project="$client_lower"
 
               # Faz o deploy de produção — lê org/project ID do .vercel/project.json criado acima
               vercel deploy --prod --token="$VERCEL_TOKEN" --yes
