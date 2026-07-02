@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #8a6238;
+    --color-bg: #efe7db;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sand-200 text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  ::selection {
+    background: rgba(169, 124, 80, 0.25);
+    color: #2b2622;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Scroll reveal (IntersectionObserver) — estado inicial e revelado */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Acessibilidade: reduzir/desligar movimento quando solicitado */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .animate-kenburns,
+    .animate-float {
+      animation: none !important;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+           transition-all duration-200 focus:outline-none min-h-[44px] cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply btn bg-bronze-600 text-sand-50 shadow-soft hover:bg-bronze-700 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply btn border border-bronze-500/40 bg-sand-50/70 text-bronze-700 hover:bg-sand-50 hover:border-bronze-500
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-bronze-500/30 bg-sand-50/80
+           px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-bronze-700;
+  }
+
+  .card {
+    @apply rounded-3xl border border-sand-300 bg-sand-50/90 shadow-soft;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-bronze-500 via-bronze-600 to-bronze-700 bg-clip-text text-transparent;
+  }
+}
