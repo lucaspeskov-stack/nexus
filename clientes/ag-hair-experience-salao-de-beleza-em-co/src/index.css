@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #4a2c43;
+    --color-bg: #f3ece2;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-champagne-100 text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  ::selection {
+    background: rgba(74, 44, 67, 0.18);
+    color: #2b1f28;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Scroll reveal (IntersectionObserver) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .animate-kenburns,
+    .animate-float {
+      animation: none !important;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+           transition-all duration-200 focus:outline-none min-h-[44px] cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply btn bg-plum-600 text-champagne-50 shadow-soft hover:bg-plum-700 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply btn border border-plum-500/40 bg-champagne-50/70 text-plum-600 hover:bg-champagne-50 hover:border-plum-500
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-champagne-50/80
+           px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-plum-600;
+  }
+
+  .card {
+    @apply rounded-3xl border border-champagne-300 bg-champagne-50/90 shadow-soft;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-plum-500 via-plum-600 to-gold-600 bg-clip-text text-transparent;
+  }
+}
